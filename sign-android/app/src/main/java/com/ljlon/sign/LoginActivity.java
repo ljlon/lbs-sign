@@ -1,6 +1,7 @@
 package com.ljlon.sign;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -11,6 +12,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.ljlon.sign.library.serverApi.User;
+import com.ljlon.sign.library.serverApi.UserApi;
 
 /**
  * A login screen.
@@ -30,23 +34,14 @@ public class LoginActivity extends AppCompatActivity {
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    return true;
-                }
-                return false;
-            }
-        });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                LoginTask loginTask = new LoginTask();
+                loginTask.execute(mEmailView.getText().toString(), mPasswordView.getText().toString());
             }
         });
 
@@ -64,5 +59,17 @@ public class LoginActivity extends AppCompatActivity {
         return password.length() > 4;
     }
 
+    class LoginTask extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            User userInfo = new User();
+            boolean bRet = UserApi.Login(params[0], params[1], userInfo);
+            if (bRet == true) {
+
+            }
+            return null;
+        }
+    }
 }
 
