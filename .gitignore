@@ -1,0 +1,6 @@
+.idea
+
+sign-android/build
+sign-android/app/build
+
+sign-server/node_modules
