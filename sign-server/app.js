@@ -5,10 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var dbConfig = require('./config/database');
+var database = require('./library/database');
 var routes = require('./routes/index');
 var user = require('./routes/user');
 
 var app = express();
+
+// database init
+database.init(dbConfig.host, dbConfig.database, dbConfig.userName, dbConfig.password);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
