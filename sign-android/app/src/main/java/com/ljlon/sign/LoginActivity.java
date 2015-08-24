@@ -1,6 +1,7 @@
 package com.ljlon.sign;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.ljlon.sign.config.Constant;
 import com.ljlon.sign.library.serverApi.User;
 import com.ljlon.sign.library.serverApi.UserApi;
 
@@ -66,7 +68,9 @@ public class LoginActivity extends AppCompatActivity {
             User userInfo = new User();
             boolean bRet = UserApi.Login(params[0], params[1], userInfo);
             if (bRet == true) {
-
+                Intent intent = new Intent();
+                LoginActivity.this.setResult(Constant.CODE_LOGIN_ACTIVITY, intent);
+                LoginActivity.this.finish();
             }
             return null;
         }

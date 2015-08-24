@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ljlon.sign.config.Constant;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -15,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, LoginActivity.class);
         //it.putExtra("key","value"); //跳转时传的参数
-        startActivity(intent);
+        startActivityForResult(intent, Constant.CODE_MAIN_ACTIVITY);
     }
 
     @Override
